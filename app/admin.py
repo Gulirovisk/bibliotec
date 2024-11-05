@@ -5,6 +5,10 @@ class CidadeInline(admin.TabularInline):
     model = Cidade
     extra = 1
 
+class CidadeAdmin(admin.ModelAdmin):
+    list_display = ('nome', 'Uf')
+    search_fields = ('nome', 'Uf__sigla')
+
 class UfAdmin(admin.ModelAdmin):
     list_display = ('sigla',)
     search_fields = ('sigla',)
@@ -32,6 +36,10 @@ class AutorAdmin(admin.ModelAdmin):
     search_fields = ('nome','cidade',)
     inlines = [LivroInline,]
 
+class LivroAdmin(admin.ModelAdmin):
+    list_display = ('nome', 'genero', 'editora', 'autores')
+    search_fields = ('nome', 'genero__nome', 'editora__nome', 'autores__nome')
+
 class EmprestimoAdmin(admin.ModelAdmin):
     class LivroInline(admin.TabularInline):
         model = Emprestimo.livros.through
@@ -42,10 +50,10 @@ class EmprestimoAdmin(admin.ModelAdmin):
     exclude = ['livros']
 
 admin.site.register(Uf, UfAdmin)
-admin.site.register(Cidade)
+admin.site.register(Cidade, CidadeAdmin)
 admin.site.register(Usuario, UsuarioAdmin)
 admin.site.register(Genero, GeneroAdmin)
 admin.site.register(Editora, EditoraAdmin)
 admin.site.register(Autor, AutorAdmin)
-admin.site.register(Livro)
+admin.site.register(Livro, LivroAdmin)
 admin.site.register(Emprestimo, EmprestimoAdmin)
