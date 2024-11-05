@@ -4,8 +4,8 @@ from .models import *
 
 class IndexView(View):
     def get(self, request):
-        Uf = Uf.objects.all()
-        return render(request, 'index.html', {'uf': Uf})
+        estado = Uf.objects.all()
+        return render(request, 'index.html', {'uf': estado})
     
     def post(self, request):
         pass

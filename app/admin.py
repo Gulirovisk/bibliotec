@@ -36,9 +36,13 @@ class AutorAdmin(admin.ModelAdmin):
 
 
 class EmprestimoAdmin(admin.ModelAdmin):
+    class LivroInline(admin.TabularInline):
+        model = Emprestimo.livros.through
+        extra = 1
     list_display = ('usuario','data_emprestimo','data_devolucao',)
     search_fields = ('usuario',)
-    inlines = [LivroInline,]
+    inlines = [LivroInline]
+    exclude = ['livros']
 
 admin.site.register(Uf, UfAdmin)
 admin.site.register(Cidade)

@@ -62,10 +62,23 @@ class Autor(models.Model):
     def __str__(self):
         return self.nome
 
+class Livro(models.Model):
+    nome= models.CharField(max_length=200, verbose_name= 'Nome do Livro')
+    genero= models.ForeignKey(Genero, on_delete=models.CASCADE, verbose_name= 'Gênero')
+    editora= models.ForeignKey(Editora, on_delete=models.CASCADE, verbose_name= 'Editora')
+    autores= models.ForeignKey(Autor, on_delete=models.CASCADE, verbose_name= 'Autores')
+    class Meta:
+        verbose_name = 'Livro'
+        verbose_name_plural = 'Livros'
+
+    def __str__(self):
+        return f'{self.nome} - {self.genero}'
 class Emprestimo(models.Model):
-    usuario= models.ForeignKey(Usuario, on_delete=models.CASCADE)    
+    usuario= models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    livros= models.ManyToManyField(Livro)
     data_emprestimo= models.DateField()
     data_devolucao= models.DateField(null=True, blank=True)
+
 
     class Meta:
         verbose_name = 'Empréstimo'
@@ -73,18 +86,4 @@ class Emprestimo(models.Model):
     
     def __str__(self):
         return f'{self.usuario} - {self.data_emprestimo}'
-    
-class Livro(models.Model):
-    nome= models.CharField(max_length=200, verbose_name= 'Nome do Livro')
-    genero= models.ForeignKey(Genero, on_delete=models.CASCADE, verbose_name= 'Gênero')
-    editora= models.ForeignKey(Editora, on_delete=models.CASCADE, verbose_name= 'Editora')
-    autores= models.ForeignKey(Autor, on_delete=models.CASCADE, verbose_name= 'Autores')
-    emprestimo = models.ForeignKey(Emprestimo, on_delete=models.CASCADE, null=True, blank=True, verbose_name= 'Empréstimo')
-
-    class Meta:
-        verbose_name = 'Livro'
-        verbose_name_plural = 'Livros'
-
-    def __str__(self):
-        return f'{self.nome} - {self.genero}'
     
