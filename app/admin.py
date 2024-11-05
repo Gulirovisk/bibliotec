@@ -10,7 +10,6 @@ class UfAdmin(admin.ModelAdmin):
     search_fields = ('sigla',)
     inlines = [CidadeInline,]
 
-
 class UsuarioAdmin(admin.ModelAdmin):
     list_display = ('nome',)
     search_fields = ('nome',)
@@ -28,12 +27,10 @@ class EditoraAdmin(admin.ModelAdmin):
     list_display = ('nome','cidade',)
     search_fields = ('nome','cidade',)
 
-
 class AutorAdmin(admin.ModelAdmin):
     list_display = ('nome','cidade',)
     search_fields = ('nome','cidade',)
     inlines = [LivroInline,]
-
 
 class EmprestimoAdmin(admin.ModelAdmin):
     class LivroInline(admin.TabularInline):
