@@ -7,7 +7,7 @@ class CidadeInline(admin.TabularInline):
 
 class CidadeAdmin(admin.ModelAdmin):
     list_display = ('nome', 'Uf')
-    search_fields = ('nome', 'Uf__sigla')
+    search_fields = ('nome', 'Uf')
 
 class UfAdmin(admin.ModelAdmin):
     list_display = ('sigla',)
