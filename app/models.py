@@ -18,23 +18,12 @@ class Cidade(models.Model):
         verbose_name_plural = 'Cidades'
     def __str__(self):
         return f'{self.nome} - {self.Uf}'
-<<<<<<< HEAD
     
 class Pessoa(models.Model):
     nome = models.CharField(max_length=255)
     cidade = models.ForeignKey(Cidade, on_delete=models.CASCADE, null=True, blank=True)
     email = models.EmailField(max_length=255, blank=True)
     telefone = models.CharField(max_length=255, blank=True)
-=======
-
-class Usuario(models.Model):
-    nome= models.CharField(max_length=255)
-    cpf= models.CharField(max_length=11, unique=True)
-    data_nascimento= models.DateField()
-    email= models.EmailField(unique=True)
-    telefone = models.CharField(max_length=15)
-    cidade= models.ForeignKey(Cidade, on_delete=models.CASCADE)
->>>>>>> 56ca819e743752563115669e6112d16d187fc9e5
 
     class Meta:
         abstract = True
@@ -91,7 +80,6 @@ class Genero(models.Model):
         return self.nome
 
 
-<<<<<<< HEAD
 class Emprestimo(models.Model):
     usuario= models.ForeignKey(Usuario, on_delete=models.CASCADE)    
     data_emprestimo= models.DateField(null=True, blank=True, default= '2000-01-01')
@@ -104,13 +92,13 @@ class Emprestimo(models.Model):
     def __str__(self):
         return f'{self.usuario} - {self.data_emprestimo}'
     
-=======
->>>>>>> 56ca819e743752563115669e6112d16d187fc9e5
 class Livro(models.Model):
     nome= models.CharField(max_length=200, verbose_name= 'Nome do Livro')
     genero= models.ForeignKey(Genero, on_delete=models.CASCADE, verbose_name= 'Gênero')
     editora= models.ForeignKey(Editora, on_delete=models.CASCADE, verbose_name= 'Editora')
     autores= models.ForeignKey(Autor, on_delete=models.CASCADE, verbose_name= 'Autores')
+    emprestimo = models.ForeignKey(Emprestimo, on_delete=models.CASCADE, null=True, blank=True, verbose_name= 'Empréstimo')
+
     class Meta:
         verbose_name = 'Livro'
         verbose_name_plural = 'Livros'
@@ -118,15 +106,3 @@ class Livro(models.Model):
     def __str__(self):
         return f'{self.nome} - {self.genero}'
     
-class Emprestimo(models.Model):
-    usuario= models.ForeignKey(Usuario, on_delete=models.CASCADE)
-    livros= models.ManyToManyField(Livro)
-    data_emprestimo= models.DateField()
-    data_devolucao= models.DateField(null=True, blank=True)
-    
-    class Meta:
-        verbose_name = 'Empréstimo'
-        verbose_name_plural = 'Empréstimos'
-    
-    def __str__(self):
-        return f'{self.usuario} - {self.data_emprestimo}'
