@@ -8,37 +8,27 @@ class CidadeInline(admin.TabularInline):
 class UfAdmin(admin.ModelAdmin):
     list_display = ('sigla',)
     search_fields = ('sigla',)
-    inlines = [CidadeInline,]
-
+    inlines = [CidadeInline]
 
 class UsuarioAdmin(admin.ModelAdmin):
-    list_display = ('nome',)
-    search_fields = ('nome',)
-
-class LivroInline(admin.TabularInline):
-    model = Livro
-    extra = 1
+    list_display = ('nome', 'cidade')
+    search_fields = ('nome', 'cidade__nome')
 
 class GeneroAdmin(admin.ModelAdmin):
     list_display = ('nome',)
     search_fields = ('nome',)
-    inlines = [LivroInline,]
 
 class EditoraAdmin(admin.ModelAdmin):
-    list_display = ('nome','cidade',)
-    search_fields = ('nome','cidade',)
-
+    list_display = ('nome', 'cidade')
+    search_fields = ('nome', 'cidade__nome')
 
 class AutorAdmin(admin.ModelAdmin):
-    list_display = ('nome','cidade',)
-    search_fields = ('nome','cidade',)
-    inlines = [LivroInline,]
-
+    list_display = ('nome', 'cidade')
+    search_fields = ('nome', 'cidade__nome')
 
 class EmprestimoAdmin(admin.ModelAdmin):
-    list_display = ('usuario','data_emprestimo','data_devolucao',)
-    search_fields = ('usuario',)
-    inlines = [LivroInline,]
+    list_display = ('usuario', 'data_emprestimo', 'data_devolucao')
+    search_fields = ('usuario__nome',)
 
 admin.site.register(Uf, UfAdmin)
 admin.site.register(Cidade)

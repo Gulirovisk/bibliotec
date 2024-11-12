@@ -4,7 +4,7 @@ from .models import *
 
 class IndexView(View):
     def get(self, request):
-        Uf = Uf.objects.all()
+        uf = Uf.objects.all()
         return render(request, 'index.html', {'uf': Uf})
     
     def post(self, request):
