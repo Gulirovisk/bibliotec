@@ -14,13 +14,19 @@ class UsuarioAdmin(admin.ModelAdmin):
     list_display = ('nome', 'cidade')
     search_fields = ('nome', 'cidade__nome')
 
+class livroInline(admin.TabularInline):
+    model = Livro
+    extra = 1
+
 class GeneroAdmin(admin.ModelAdmin):
     list_display = ('nome',)
     search_fields = ('nome',)
+    inlines = [livroInline]
 
 class EditoraAdmin(admin.ModelAdmin):
     list_display = ('nome', 'cidade')
     search_fields = ('nome', 'cidade__nome')
+    inlines = [livroInline]
 
 class AutorAdmin(admin.ModelAdmin):
     list_display = ('nome', 'cidade')
@@ -29,6 +35,8 @@ class AutorAdmin(admin.ModelAdmin):
 class EmprestimoAdmin(admin.ModelAdmin):
     list_display = ('usuario', 'data_emprestimo', 'data_devolucao')
     search_fields = ('usuario__nome',)
+    inlines = [livroInline]
+
 
 admin.site.register(Uf, UfAdmin)
 admin.site.register(Cidade)
