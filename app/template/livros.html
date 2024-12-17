@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Livros</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.
+min.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+        <a class="navbar-brand" href="/">Biblioteca</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle
+        navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="/livros/">Livros</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="/admin/">Administração</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Livros Disponíveis</h1>
+        <div class="row">
+            {% for livro in livro %}
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ livro.nome }}</h5>
+                        <p class="card-text"><strong>Autor:</strong> {{ livro.autores.nome }}</p>
+                        <p class="card-text"><strong>Status:</strong> {% if livro.emprestimo %}Emprestado{% else %}Disponível{% endif %}<p>	
+                        <button class="btn btn-success" data-toggle="modal" data-target="#livroModal"
+                            data-nome="{{ livro.nome }}"
+                            data-autor="{{ livro.autores.nome }}"
+                            data-editora="{{ livro.editora.nome }}"
+                            data-genero="{{ livro.genero.nome }}"
+                            data-pub="{{ livro.data_publicacao }}"
+                            >
+                            Ver Livro
+                        </button>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <p class="col-12">Nenhum livro disponível.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="livroModal" tabindex="-1" role="dialog" aria-labelledby="livroModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="courseModalLabel">Detalhes do Livro</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Nome:</strong> <span id="modalNome"></span></p>
+                    <p><strong>Autor:</strong> <span id="modalAutor"></span></p>
+                    <p><strong>Editora:</strong> <span id="modalEditora"></span></p>
+                    <p><strong>Gênero:</strong> <span id="modalGenero"></span></p>
+                    <p><strong>Data de Publicação:</strong> <span id="modalPub"></span></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $('#livroModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var nome = button.data('nome');
+            var autor = button.data('autor');
+            var editora = button.data('editora');
+            var genero = button.data('genero');
+            var pub = button.data('pub');
+            var status = button.data('status');
+
+            var modal = $(this);
+            modal.find('#modalNome').text(nome);
+            modal.find('#modalAutor').text(autor);
+            modal.find('#modalEditora').text(editora);
+            modal.find('#modalGenero').text(genero);
+            modal.find('#modalPub').text(pub);
+            modal.find('#modalStatus').text(status);
+        });
+    </script>
+
+</body>
+
+</html>

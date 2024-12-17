@@ -35,7 +35,6 @@ class AutorAdmin(admin.ModelAdmin):
 class EmprestimoAdmin(admin.ModelAdmin):
     list_display = ('usuario', 'data_emprestimo', 'data_devolucao')
     search_fields = ('usuario__nome',)
-    inlines = [livroInline]
 
 
 admin.site.register(Uf, UfAdmin)

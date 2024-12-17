@@ -97,6 +97,7 @@ class Livro(models.Model):
     genero= models.ForeignKey(Genero, on_delete=models.CASCADE, verbose_name= 'Gênero')
     editora= models.ForeignKey(Editora, on_delete=models.CASCADE, verbose_name= 'Editora')
     autores= models.ForeignKey(Autor, on_delete=models.CASCADE, verbose_name= 'Autores')
+    data_publicacao = models.DateField(null=True, blank=True, default= '2000-01-01', verbose_name= 'Data de Publicação')
     emprestimo = models.ForeignKey(Emprestimo, on_delete=models.CASCADE, null=True, blank=True, verbose_name= 'Empréstimo')
 
     class Meta:
