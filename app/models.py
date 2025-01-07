@@ -35,8 +35,6 @@ class PessoaFisica(Pessoa):
     cpf = models.CharField(max_length=255, default= None)
     data_nascimento = models.DateField(default='2000-01-01')
 
-    class Meta:
-        abstract = True
 
     def __str__(self):
         return self.nome
@@ -46,8 +44,6 @@ class PessoaJuridica(Pessoa):
     razao_social = models.CharField(max_length=255, default= None)
     data_fundacao = models.DateField(default= '2000-01-01')
 
-    class Meta:
-        abstract = True
     
     def __str__(self):
         return self.nome
